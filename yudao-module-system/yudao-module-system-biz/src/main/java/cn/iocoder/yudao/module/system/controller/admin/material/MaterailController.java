@@ -2,7 +2,6 @@ package cn.iocoder.yudao.module.system.controller.admin.material;
 
 import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
-import cn.iocoder.yudao.module.system.controller.admin.group.vo.GroupRespVO;
 import cn.iocoder.yudao.module.system.controller.admin.material.vo.MaterialPageReqVO;
 import cn.iocoder.yudao.module.system.controller.admin.material.vo.MaterialRespVO;
 import cn.iocoder.yudao.module.system.convert.material.MaterialConvert;
@@ -30,9 +29,9 @@ public class MaterailController {
     private MaterialService materialService;
 
     @GetMapping("/page")
-    @Operation(summary = "获得用户组分页")
+    @Operation(summary = "获得物料分页")
     @PreAuthorize("@ss.hasPermission('system:material:query')")
-    public CommonResult<PageResult<MaterialRespVO>> getGroupPage(@Valid MaterialPageReqVO pageVO) {
+    public CommonResult<PageResult<MaterialRespVO>> geMterialPage(@Valid MaterialPageReqVO pageVO) {
         PageResult<MaterialDO> pageResult = materialService.getMaterialPage(pageVO);
         return success(MaterialConvert.INSTANCE.convertPage(pageResult));
     }
