@@ -179,6 +179,7 @@ public class AdminAuthServiceImpl implements AdminAuthService {
         }
         // 校验验证码
         ValidationUtils.validate(validator, reqVO, AuthLoginReqVO.CodeEnableGroup.class);
+        //图片验证码VO
         CaptchaVO captchaVO = new CaptchaVO();
         captchaVO.setCaptchaVerification(reqVO.getCaptchaVerification());
         ResponseModel response = captchaService.verification(captchaVO);
