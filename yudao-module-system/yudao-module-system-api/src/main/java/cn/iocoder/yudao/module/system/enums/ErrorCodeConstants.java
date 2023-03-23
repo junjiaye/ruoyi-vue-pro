@@ -162,7 +162,9 @@ public interface ErrorCodeConstants {
     // ========== 站内信发送 1002028000 ==========
     ErrorCode NOTIFY_SEND_TEMPLATE_PARAM_MISS = new ErrorCode(1002025000, "模板参数({})缺失");
 
-    // ========== 用户组 T1002030000 ==========
+    // ========== 用户组 1002030000 ==========
     ErrorCode GROUP_NOT_EXISTS = new ErrorCode(1002030000, "用户组不存在");
 
+    // ========== 物料 1002040000 ==========
+    ErrorCode MATERIAL_NOT_EXISTS = new ErrorCode(1002040000, "物料不存在");
 }

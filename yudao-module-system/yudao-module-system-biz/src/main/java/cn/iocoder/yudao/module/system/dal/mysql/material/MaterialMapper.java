@@ -3,6 +3,7 @@ package cn.iocoder.yudao.module.system.dal.mysql.material;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.mybatis.core.mapper.BaseMapperX;
 import cn.iocoder.yudao.framework.mybatis.core.query.LambdaQueryWrapperX;
+import cn.iocoder.yudao.module.system.controller.admin.material.vo.MaterialExportReqVO;
 import cn.iocoder.yudao.module.system.controller.admin.material.vo.MaterialPageReqVO;
 import cn.iocoder.yudao.module.system.dal.dataobject.material.MaterialDO;
 import org.apache.ibatis.annotations.Mapper;
@@ -25,7 +26,7 @@ public interface MaterialMapper extends BaseMapperX<MaterialDO> {
                 .orderByDesc(MaterialDO::getId));
     }
 
-    default List<MaterialDO> selectList(MaterialPageReqVO reqVO) {
+    default List<MaterialDO> selectList(MaterialExportReqVO reqVO) {
         return selectList(new LambdaQueryWrapperX<MaterialDO>()
                 .likeIfPresent(MaterialDO::getMaterialname, reqVO.getMaterialname())
                 .eqIfPresent(MaterialDO::getMaterialstatus, reqVO.getMaterialstatus())

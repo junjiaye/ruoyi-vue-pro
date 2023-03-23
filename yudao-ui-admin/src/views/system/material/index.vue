@@ -4,10 +4,10 @@
       <!-- 搜索工作栏 -->
       <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
         <el-form-item label="物料名称" prop="materialname">
-          <el-input v-model="queryParams.name" placeholder="请输入物料名称" clearable @keyup.enter.native="handleQuery"/>
+          <el-input v-model="queryParams.materialname" placeholder="请输入物料名称" clearable @keyup.enter.native="handleQuery"/>
         </el-form-item>
         <el-form-item label="物料状态" prop="materialstatus">
-          <el-select v-model="queryParams.status" placeholder="请选择状态" clearable size="small">
+          <el-select v-model="queryParams.materialstatus" placeholder="请选择状态" clearable size="small">
             <el-option v-for="dict in this.getDictDatas(DICT_TYPE.COMMON_STATUS)"
                          :key="dict.value" :label="dict.label" :value="dict.value"/>
           </el-select>
@@ -34,12 +34,15 @@
         </el-col>
         <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
       </el-row>
-  
       <!-- 列表 -->
       <el-table v-loading="loading" :data="list">
         <el-table-column label="编号" align="center" prop="id" />
         <el-table-column label="物料名称" align="center" prop="materialname" />
-        <el-table-column label="物料类型" align="center" prop="materialtype" />
+        <el-table-column label="物料类型" align="center" prop="materialtype" >
+            <template v-slot="scope">
+                <dict-tag :type="DICT_TYPE.SYSTEM_MATERIAL_TYPE" :value="scope.row.materialtype" />
+            </template>
+        </el-table-column>
         <el-table-column label="物料描述" align="center" prop="materialdescription" />
         <el-table-column label="物料状态" align="center" prop="materialstatus">
           <template v-slot="scope">
@@ -71,7 +74,10 @@
             <el-input v-model="form.materialname" placeholder="请输入名字" />
           </el-form-item>
           <el-form-item label="物料类型" prop="materialtype">
-            <el-input v-model="form.materialtype" placeholder="请输入类型" />
+            <el-select v-model="form.materialtype" placeholder="请选择类型">
+              <el-option v-for="dict in this.getDictDatas(DICT_TYPE.SYSTEM_MATERIAL_TYPE)"
+                         :key="dict.value" :label="dict.label" :value="dict.value" />
+            </el-select>
           </el-form-item>
           <el-form-item label="物料描述">
             <editor v-model="form.materialdescription" :min-height="192"/>
@@ -120,16 +126,16 @@
         queryParams: {
           pageNo: 1,
           pageSize: 10,
-          name: null,
-          status: null,
+          materialname: null,
+          materialstatus: null,
           createTime: [],
         },
         // 表单参数
         form: {},
         // 表单校验
         rules: {
-          name: [{ required: true, message: "名字不能为空", trigger: "blur" }],
-          status: [{ required: true, message: "状态不能为空", trigger: "change" }],
+            materialname: [{ required: true, message: "名字不能为空", trigger: "blur" }],
+            materialstatus: [{ required: true, message: "状态不能为空", trigger: "change" }],
         }
       };
     },
@@ -156,9 +162,9 @@
       reset() {
         this.form = {
           id: undefined,
-          name: undefined,
-          description: undefined,
-          status: undefined,
+          materialname: undefined,
+          materialdescription: undefined,
+          materialstatus: undefined,
         };
         this.resetForm("form");
       },

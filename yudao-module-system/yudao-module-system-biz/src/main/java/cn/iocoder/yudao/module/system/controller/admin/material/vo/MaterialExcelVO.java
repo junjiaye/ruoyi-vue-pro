@@ -22,7 +22,8 @@ public class MaterialExcelVO {
     @ExcelProperty("物料名字")
     private String materialname;
 
-    @ExcelProperty("物料名字")
+    @ExcelProperty(value = "物料类型",converter = DictConvert.class)
+    @DictFormat("system_material_type")
     private String materialtype;
 
     @ExcelProperty("物料描述")
